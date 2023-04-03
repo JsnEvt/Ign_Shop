@@ -3,6 +3,7 @@ import { globalStyles } from '../styles/global';
 
 import logoImg from '../assets/logo.svg'
 import { Container, Header } from '../styles/pages/app';
+import { Cart } from '../components/Cart';
 
 
 globalStyles()
@@ -12,6 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Container>
       <Header>
         <img src={logoImg.src} alt="" />
+        <Cart />
       </Header>
       <Component {...pageProps} />
     </Container>

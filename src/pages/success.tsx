@@ -1,5 +1,4 @@
 import { GetServerSideProps } from 'next';
-import { redirect } from 'next/dist/server/api-utils';
 import Head from 'next/head';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
