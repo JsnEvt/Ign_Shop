@@ -6,8 +6,14 @@ import Image from 'next/image';
 import { useCart } from '../../hooks/useCart';
 
 export function Cart() {
-  const { cartItems } = useCart()
+  const { cartItems, removeCartItem, cartTotal } = useCart()
   const cartQuantity = cartItems.length
+
+  const totalPriceFormatted = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(cartTotal);
+
 
   return (
     <Dialog.Root>
@@ -35,7 +41,7 @@ export function Cart() {
                 <CartProductDetails>
                   <p>{cartItem.name}</p>
                   <strong>{cartItem.price} </strong>
-                  <button>Remover</button>
+                  <button onClick={() => removeCartItem(cartItem.id)}>Remover</button>
                 </CartProductDetails>
               </CartProduct>
             ))}
@@ -44,11 +50,11 @@ export function Cart() {
             <FinalizationDetails>
               <div>
                 <span>Quantidade</span>
-                <p>{cartQuantity} {cartQuantity > 1 ? 'items' : 'item'}</p>
+                <p>{cartQuantity} {cartQuantity === 1 ? 'item' : 'itens'}</p>
               </div>
               <div>
                 <span>Valor total</span>
-                <div>R$ 100,00</div>
+                <div>{totalPriceFormatted}</div>
               </div>
             </FinalizationDetails>
             <button>Finalizar compra</button>
