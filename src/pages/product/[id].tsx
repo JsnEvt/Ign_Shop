@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/legacy/image'
@@ -6,38 +5,44 @@ import { useState } from 'react'
 import Stripe from 'stripe'
 import { stripe } from '../../lib/stripe'
 import { ImageContainer, ProductContainer, ProductDetails } from '../../styles/pages/product'
+import { useRouter } from 'next/router'
+import { useCart } from '../../hooks/useCart'
+import { IProduct } from '../../contexts/CartContext'
 
 interface ProductProps {
-  product: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-    description: string;
-    defaultPriceId: string;
-  }
+  product: IProduct;
 }
 
 export default function Product({ product }: ProductProps) {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
 
-  async function handleByProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
+  const { isFallback } = useRouter()
 
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
-      })
-      const { checkoutUrl } = response.data
+  const { addToCart, checkIfItemAlreadyExists } = useCart()
 
-      window.location.href = checkoutUrl
-      //a linha acima redireciona o usuario de volta para nosso sistema 
-    } catch (e) {
-      //Conectar com uma ferramenta de observabilidade(Datadog/Sentry)
-      setIsCreatingCheckoutSession(false)
-      alert('Falha ao redirecionar ao checkout')
-    }
+  if (isFallback) {
+    return <p>Loading...</p>
   }
+
+  const itemAlreadyInCart = checkIfItemAlreadyExists(product.id)
+
+  // async function handleByProduct() {
+  //   try {
+  //     setIsCreatingCheckoutSession(true)
+
+  //     const response = await axios.post('/api/checkout', {
+  //       priceId: product.defaultPriceId,
+  //     })
+  //     const { checkoutUrl } = response.data
+
+  //     window.location.href = checkoutUrl
+  //     //a linha acima redireciona o usuario de volta para nosso sistema 
+  //   } catch (e) {
+  //     //Conectar com uma ferramenta de observabilidade(Datadog/Sentry)
+  //     setIsCreatingCheckoutSession(false)
+  //     alert('Falha ao redirecionar ao checkout')
+  //   }
+  // }
 
   return (
     <>
@@ -55,8 +60,10 @@ export default function Product({ product }: ProductProps) {
 
           {product.description}
 
-          <button disabled={isCreatingCheckoutSession} onClick={handleByProduct}>
-            Comprar agora
+          <button
+            disabled={itemAlreadyInCart}
+            onClick={() => addToCart(product)}>
+            {itemAlreadyInCart ? 'Produto já está no carrinho.' : 'Colocar na sacola'}
           </button>
         </ProductDetails>
       </ProductContainer>
@@ -91,6 +98,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
           style: 'currency',
           currency: 'BRL',
         }).format(price.unit_amount / 100),
+        numberPrice: price.unit_amount / 100,
         description: product.description,
         defaultPriceId: price.id
       }
