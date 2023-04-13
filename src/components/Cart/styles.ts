@@ -5,7 +5,7 @@ export const CartContent = styled(Dialog.Content, {
   position: 'fixed',
   top: 0,
   right: 0,
-  botton: 0,
+  bottom: 0,
   width: '30rem',
   background: '$gray800',
   padding: '3rem',
@@ -118,7 +118,7 @@ export const FinalizationDetails = styled('section', {
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  marginbottom: 55,
+  marginBottom: 55,
 
   div: {
     display: 'flex',

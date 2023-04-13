@@ -4,8 +4,7 @@ import Image from 'next/legacy/image';
 import Link from 'next/link';
 import Stripe from 'stripe';
 import { stripe } from '../lib/stripe';
-import { ImageContainer } from '../styles/pages/product';
-import { ImagesContainer, SuccessContainer } from '../styles/pages/success';
+import { ImagesContainer, SuccessContainer, ImageContainer } from '../styles/pages/success';
 
 interface SuccessProps {
   customerName: string;
@@ -26,20 +25,16 @@ export default function Success({ customerName, productsImages }: SuccessProps) 
             <ImageContainer key={i}>
               <Image src={image} width={120} height={110} alt='' />
             </ImageContainer>
-
           ))}
-
         </ImagesContainer>
         <h1>Compra efetuada!</h1>
-
         <p>
-          Uhuuuu<strong>{customerName}</strong>, sua compra de {''}
+          Uhuuuu<strong>{customerName}</strong>, sua compra de {' '}
           {productsImages.length} camisetas já está à caminho da sua casa.
         </p>
-        <Link href={''}>
+        <Link href={'/'}>
           Voltar ao catálogo
         </Link>
-
       </SuccessContainer>
     </>
   )
