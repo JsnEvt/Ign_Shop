@@ -78,6 +78,18 @@ O layout da aplicação está disponível no Figma:
 
 ---
 
+## 🚀 Como executar o projeto
+
+O projeto foi feito usando o framework Next com React 
+
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), 
+[Node.js](https://nodejs.org/en/). 
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
 #### 🧭 Rodando a aplicação web (Frontend)
 
 ```bash
@@ -127,12 +139,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 > Caso tenha alguma dúvida confira este [guia de como contribuir no GitHub](./CONTRIBUTING.md)
 
 ---
-
-
-
-
-
-
 
 
 ## 🦸 Autor
