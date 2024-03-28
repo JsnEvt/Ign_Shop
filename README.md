@@ -71,9 +71,8 @@ O layout da aplicação está disponível no Figma:
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Appfrontend1" title="#Appfrontend" src="./img/scroll.png" width="400px">
+  <img alt="Appfrontend1" title="#Appfrontend" src="./img/Scroll.png" width="400px">
   <img alt="Appfrontend2" title="#Appfrontend" src="./img/Product.png" width="400px">
-  <img alt="Appfrontend3" title="#Appfrontend" src="./img/Product(1).png" width="400px">
   <img alt="Appfrontend4" title="#Appfrontend" src="./img/Purchase.png" width="400px">
 </p>
 
